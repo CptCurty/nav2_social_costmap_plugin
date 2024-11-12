@@ -25,6 +25,7 @@ In our case, the ProxemicsLayer and the PassingLayer have been joined in a singl
 
 
   * `enabled` (bool, default: True). Whether to apply this plugin or not.
+  *  people_topic (string, default: '/people'). The people topic to consider for the costmap.
   * `cutoff` (double, default: 5.0). Smallest cost value to publish on the costmap. 
   * `amplitude` (double, default: 255.0). Amplitude of adjustments at peak. Maximum cost on the person center.
   * `covariance_front_height` (double, default: 0.25). Covariance of the ordinate axis of the Gaussian at the person heading. 
@@ -52,6 +53,7 @@ local_costmap:
       plugins: [(other plugins..), "social_layer"]
       social_layer:
         plugin: "nav2_social_costmap_plugin::SocialLayer"
+        people_topic: "/people"
         enabled: True
         cutoff: 10.0
         amplitude: 255.0

@@ -26,10 +26,14 @@ namespace nav2_social_costmap_plugin
   // It contains ROS parameter(s) declaration and subscription to topics
   void SocialLayer::onInitialize()
   {
+    
     // START Subscription to topic
     auto nod = node_.lock();
+    declareParameter("people_topic", rclcpp::ParameterValue("/people"));
+    nod -> get_parameter(name_ + "." + "people_topic", people_topic_);
+
     ppl_sub_ = nod->create_subscription<people_msgs::msg::People>(
-        "/people", rclcpp::SensorDataQoS(),
+        people_topic_, rclcpp::SensorDataQoS(),
         std::bind(&SocialLayer::peopleCallback, this, std::placeholders::_1));
 
     RCLCPP_INFO(nod->get_logger(),
